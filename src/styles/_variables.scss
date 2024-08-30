@@ -1,5 +1,5 @@
 /*PALETA DE COLORES*/
-$page-backgrpund: #B2B2B2;
+$page-backgrpund: #f3f5fa;
 $white: #FFFFFF;
 $white-opacity-80:rgba(255,255,255,0.8);
 $white-opacity-16:rgba(255,255,255,0.16);
@@ -20,7 +20,7 @@ $dark-blue-opacity-60:rgb(65, 110, 223, 0.6);
 $yellow:#FFCE31;
 
 $colorPokemonTag: (
-    fire:#FF6464
+    fire:#FF6464,
     bug:#C9FF84,
     water:#9FF3FF,
     flying:#2299EE,
@@ -41,7 +41,7 @@ $colorPokemonTag: (
 );
 
 $colorPokemonBackground: (
-    fire:#EB6C6C
+    fire:#EB6C6C,
     bug:#91AC22,
     water:#009ACB,
     flying:#2299EE,
@@ -82,18 +82,3 @@ $font-weight-subtext2:normal;
 
 $font-size-button:16px;
 $font-weight-subtext2:bold;
-
-
-
-.body {
-    font-family: "Roboto", sans-serif;
-    font-weight: bold;
-    font-style: normal;
-    font-size: 48px;
-}
-
-
-
-
-
-

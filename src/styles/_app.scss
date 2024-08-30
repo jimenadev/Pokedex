@@ -1,0 +1,12 @@
+body {
+    @include reset();
+	width: 99vw;
+	height: auto;
+    background-color: $page-backgrpund;
+    font-size: 16px;
+    .app{
+        width: 94vw;
+        margin: 3%;
+        
+    }
+}
