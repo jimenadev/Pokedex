@@ -1,0 +1,98 @@
+/*PALETA DE COLORES*/
+$white: #FFFFFF;
+$white-opacity-80:rgba(255,255,255,0.8);
+$white-opacity-16:rgba(255,255,255,0.16);
+$white-opacity-8:rgba(255,255,255,0.08);
+
+$light-gray:#F5F7FB;
+$dark-gray:#212121;
+$dark-gray-opacity-80:rgba(33, 33, 33, 0.8);
+$dark-gray-opacity-60:rgba(33, 33, 33, 0.6);
+$dark-gray-opacity-24:rgba(33, 33, 33, 0.24);
+$dark-gray-opacity-16:rgba(33, 33, 33, 0.16);
+$dark-gray-opacity-8:rgba(33, 33, 33, 0.08);
+
+$blue:#C9D2EA;
+$dark-blue:#416EDF;
+$dark-blue-opacity-60:rgb(65, 110, 223, 0.6);
+
+$yellow:#FFCE31;
+
+$colorPokemonTag: (
+    fire:#FF6464
+    bug:#C9FF84,
+    water:#9FF3FF,
+    flying:#2299EE,
+    poison:#D89CFD,
+    normal:#CBCBCB,
+    rock:#CFC06F,
+    ground:#FFBF72,
+    fighting:#FF699F,
+    ghost:#B592FF,
+    psychic:#FF5E60,
+    ice:#AEFFF4,
+    dragon:#87C5FF,
+    dark:#8F8F8F,
+    fairy:#FFA2E3,
+    electric:#FFFA86,
+    steel:#A4FFE9,
+    grass:#80E177,
+);
+
+$colorPokemonBackground: (
+    fire:#EB6C6C
+    bug:#91AC22,
+    water:#009ACB,
+    flying:#2299EE,
+    poison:#7E00CB,
+    normal:#B6B6B6,
+    rock:#857D57,
+    ground:#A77437,
+    fighting:#BA114E,
+    ghost:#6B2BF1,
+    psychic:#C4484A,
+    ice:#3A9D90,
+    dragon:#1268B8,
+    dark:#373737,
+    fairy:#C01A8D,
+    electric:#B7B117,
+    steel:#448F85,
+    grass:#1EBA11,
+);
+
+/*TIPOGRAFIA*/
+$font-roboto:"Roboto";
+$font-size-heading-l:48px;
+$font-size-heading-m:28px;
+$font-size-heading-s:18px;
+$font-weight-heading: bold;
+
+$font-size-body:20px;
+$font-weight-body: bold;
+
+$font-size-body2:16px;
+$font-weight-body: medium;
+
+$font-size-subtext:16px;
+$font-weight-subtext: bold;
+
+$font-size-subtext2:14px;
+$font-weight-subtext2:normal;
+
+$font-size-button:16px;
+$font-weight-subtext2:bold;
+
+
+
+.body {
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 48px;
+}
+
+
+
+
+
+
