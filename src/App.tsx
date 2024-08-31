@@ -2,7 +2,8 @@ import React from 'react';
 import logo from "./statics/Pokedex-logo.svg"
 import Header from './components/Header';
 import Searcher from './components/Searcher';
-import Filters from './components/Filters';
+import Order from './components/Order';
+import FilterByType from './components/FilterByType';
 
 function App() {
   return (
@@ -12,7 +13,14 @@ function App() {
             <img src={logo} alt="logo"/>
         </div>
        <Searcher />
-       <Filters />
+       <div className="filters">
+          <div className="orderPokemon">
+            <Order />
+          </div>
+          <div className="filtersPokemonType">
+            <FilterByType />   
+          </div>
+        </div>
       </Header>
     </div>
   );
