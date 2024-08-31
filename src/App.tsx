@@ -4,6 +4,8 @@ import Header from './components/Header';
 import Searcher from './components/Searcher';
 import Order from './components/Order';
 import FilterByType from './components/FilterByType';
+import CardPokemon from './components/CardPokemon';
+import CardList from './components/CardList';
 
 function App() {
   return (
@@ -22,6 +24,12 @@ function App() {
           </div>
         </div>
       </Header>
+      <CardList>
+        <CardPokemon />
+        <CardPokemon />
+        <CardPokemon />
+        <CardPokemon />
+      </CardList>
     </div>
   );
 }
