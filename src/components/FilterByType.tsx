@@ -1,6 +1,6 @@
 const FilterByType = () =>{
     return  <div className="filterType">
-                Filters
+                <span className="bi--filter"></span> Filter
             </div>
 }
 
