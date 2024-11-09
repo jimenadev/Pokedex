@@ -1,0 +1,11 @@
+@each $nombre, $color in $colorPokemonTag{
+    .pokemonType-#{$nombre}{
+        background-color: $color;
+    }
+}
+
+@each $nombre, $color in $colorPokemonBackground{
+    .pokemonCard-#{$nombre}{
+        background-color: $color;
+    }
+}

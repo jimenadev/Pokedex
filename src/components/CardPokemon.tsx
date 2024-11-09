@@ -1,20 +1,27 @@
-import { ReactNode } from "react";
-import grass from "../statics/icon/grass.svg";
-import poison from "../statics/icon/poison.svg";
+import { PokemonDTO } from './../DTO/Pokemon.dto';
+import { PokemonTypesDTO } from "../DTO/PokemonTypes.dto";
+import TypePokemon from "./TypePokemon";
 
-//https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png
-//https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png
-const CardPokemon = () =>{
-    return <div className="pokemon-card">
+interface CardPokemonProps {
+    pokemon: PokemonDTO;
+  }
+
+const CardPokemon: React.FC<CardPokemonProps> = ({ pokemon }) =>{
+    console.log("pokemon: ",pokemon)
+    return <div className={`pokemon-card pokemonCard-${pokemon.types[0].type}`}>
                 <div className="pokemon-image">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="" />
+                    <img src={pokemon.urlImage} alt="" />
                 </div>
                 <div className="pokemon-text">
-                    <h1 className="pokemon-name">Bulbasaur</h1>
-                    <p className="pokemon-number">#001</p>
+                    <h1 className="pokemon-name">{pokemon.name}</h1>
+                    <p className="pokemon-number">{pokemon.number}</p>
                     <div className="pokemon-types">
-                        <div className="pokemon-type"><span><img src={grass} alt=""/></span>Grass</div>
-                        <div className="pokemon-type"><span><img src={poison} alt=""/></span>Poison</div>
+                    {pokemon.types.map((type: PokemonTypesDTO) => (
+                        <TypePokemon
+                        key={pokemon.id}
+                        typePokemon={type} 
+                        />
+                    ))}
                     </div>
                 </div>
             </div>

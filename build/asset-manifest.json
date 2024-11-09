@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.38d313a5.css",
+    "main.js": "/static/js/main.24ad6e12.js",
+    "static/media/Pokedex-logo.svg": "/static/media/Pokedex-logo.326459622ae41a46a0ed17a4da84fc60.svg",
+    "static/media/poison.svg": "/static/media/poison.1054797fb40f95b5fde2d0076bf41a66.svg",
+    "index.html": "/index.html",
+    "static/media/grass.svg": "/static/media/grass.a4b5bf53ea4f3c2b432400984386dbc4.svg",
+    "main.38d313a5.css.map": "/static/css/main.38d313a5.css.map",
+    "main.24ad6e12.js.map": "/static/js/main.24ad6e12.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.38d313a5.css",
+    "static/js/main.24ad6e12.js"
+  ]
+}
