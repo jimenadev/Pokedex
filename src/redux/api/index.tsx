@@ -1,7 +1,11 @@
 import axios from "axios";
 
-const apiCall = axios.create({
-  baseURL: "https://pokeapi.co/api/v2/pokemon",
+export const apiCall = axios.create({
+  baseURL: "https://pokeapi.co/api/v2",
 });
 
-export default apiCall;
+
+export const dataTypesPokemon = async (url:string) => {
+  return  axios.get(url)
+    .then(res => res.data.types)
+}
