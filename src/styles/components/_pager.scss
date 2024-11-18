@@ -1,0 +1,84 @@
+#pager {
+    text-align: center;
+    width: 50%;
+    margin-left: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    #outer {
+    
+        div {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            box-shadow: 1px 1px 1px #999;
+            font-style: oblique;
+            text-align: center;
+            float: left;
+            background: $dark-blue;
+            color: $white;
+            cursor: pointer;
+
+          
+    
+            &:hover {
+                background: $yellow;
+                color: $dark-blue;
+            }
+        }
+
+        .page-selected {
+            background: $yellow;
+            color: $dark-blue;
+        }
+
+       
+    }
+
+        
+    .prev {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px;
+        font-weight: bold;
+        color: $dark-blue;
+        font-size: $font-size-heading-s;
+        border: 2px solid $dark-blue;
+        background-color: $white;
+        cursor:pointer;
+
+        &:hover {
+            background: $yellow;
+        }
+        
+    }
+    .next {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px;
+        font-weight: bold;
+        color: $dark-blue;
+        font-size: $font-size-heading-s;
+        border: 2px solid $dark-blue;
+        background-color: $white;
+        cursor:pointer;
+
+        &:hover {
+            background: $yellow;
+        }
+    }
+}

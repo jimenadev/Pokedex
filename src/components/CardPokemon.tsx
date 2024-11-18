@@ -4,7 +4,7 @@ import { PokemonTypes } from "../redux/types/PokemonTypes";
 
 interface CardPokemonProps {
     pokemon: Pokemon;
-  }
+}
 
 const CardPokemon: React.FC<CardPokemonProps> = ({ pokemon }) =>{
     const types = pokemon.types ?? [];

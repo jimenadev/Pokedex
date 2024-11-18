@@ -14,6 +14,8 @@ import { Pokemon } from './redux/types/Pokemon';
 import CardListLoading from './components/CardListLoading';
 import CardPokemonLoading from './components/CardPokemonLoading';
 import Error from './components/Error';
+import Pager from './components/Pager';
+import Page from './components/Page';
 
 function App() {
 
@@ -23,7 +25,7 @@ function App() {
   const pokemonsErr = useSelector(pokemonsErrSel, shallowEqual)
 
   useEffect(() => {
-    const limit = 21;
+    const limit = 30;
     const offset = 0
     dispatch(fetchPokemons(limit, offset));    
   }, []);
@@ -65,7 +67,14 @@ function App() {
        </CardList>
       }
 
-     
+    <Pager>
+      <Page pageNumber={1} selected={true} />
+      <Page pageNumber={2} selected={false} />
+      <Page pageNumber={3} selected={false} />
+      <Page pageNumber={4} selected={false} />
+      <Page pageNumber={5} selected={false} />
+      <Page pageNumber={6} selected={false} />
+    </Pager>
     </div>
   );
 }
