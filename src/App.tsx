@@ -11,6 +11,9 @@ import FilterByType from './components/FilterByType';
 import CardPokemon from './components/CardPokemon';
 import CardList from './components/CardList';
 import { Pokemon } from './redux/types/Pokemon';
+import CardListLoading from './components/CardListLoading';
+import CardPokemonLoading from './components/CardPokemonLoading';
+import Error from './components/Error';
 
 function App() {
 
@@ -42,14 +45,27 @@ function App() {
           </div>
         </div>
       </Header>
-      <CardList>
-      {pokemons.map((pokemon: Pokemon) => (
-        <CardPokemon
-          key={pokemon.id}
-          pokemon={pokemon} 
-        />
-      ))}
-      </CardList>
+
+      {isFetchingPokemons && <CardListLoading>
+        <CardPokemonLoading/>
+        <CardPokemonLoading/>
+        <CardPokemonLoading/>
+      </CardListLoading>}
+
+      { (pokemonsErr || pokemons.length === 0) && <Error />}
+
+      {!isFetchingPokemons && !pokemonsErr && pokemons.length > 0 && 
+       <CardList>
+       {pokemons.map((pokemon: Pokemon) => (
+         <CardPokemon
+           key={pokemon.id}
+           pokemon={pokemon} 
+         />
+       ))}
+       </CardList>
+      }
+
+     
     </div>
   );
 }
