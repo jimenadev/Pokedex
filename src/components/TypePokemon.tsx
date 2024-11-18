@@ -1,7 +1,7 @@
-import { PokemonTypesDTO } from "../DTO/PokemonTypes.dto";
+import { PokemonTypes } from "../redux/types/PokemonTypes";
 
 interface TypePokemonProps {
-    typePokemon: PokemonTypesDTO;
+    typePokemon: PokemonTypes;
   }
 
 const TypePokemon: React.FC<TypePokemonProps> = ({ typePokemon }) =>{

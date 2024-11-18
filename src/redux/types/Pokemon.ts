@@ -2,9 +2,14 @@ import { PokemonTypes } from "./PokemonTypes";
 
 export interface PokemonState {
     isFetchingPokemons: boolean;
-    error?: string; 
+    error?: string | undefined; 
     pokemons: Pokemon[];
 }
+
+
+export interface RootState {
+    pokemonReducer: PokemonState;
+  }
 
 export interface SuccessFetchingPokemonsPayload {
     data: Pokemon[];

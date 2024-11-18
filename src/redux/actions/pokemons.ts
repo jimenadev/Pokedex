@@ -1,7 +1,6 @@
-import { createAction, PayloadAction, ThunkAction } from "@reduxjs/toolkit";
-
+import { createAction } from "@reduxjs/toolkit";
+import { AppThunk } from '../store';
 import { apiCall, dataTypesPokemon } from "../api";
-import { RootState } from "../store";
 import { ErrorFetchingPokemonsPayload, Pokemon, SuccessFetchingPokemonsPayload } from "../types/Pokemon";
 import { PokemonUtils } from "../utils/PokemonUtils";
 import { PokemonTypes } from "../types/PokemonTypes";
@@ -13,12 +12,13 @@ export const successFetchingPokemons = createAction<SuccessFetchingPokemonsPaylo
 export const fetchPokemons = (
     limit:number, 
     offset:number
-): ThunkAction<void, RootState, unknown, PayloadAction<any>> => async (dispatch) => {
+):  AppThunk  => async (dispatch) => {
     try {
       dispatch(startFetchingPokemons());
 
       const dataPoke  = await apiCall.get( `/pokemon?limit=${limit}&offset=${offset}`);
-      const pokemonsTransform:Pokemon[] = PokemonUtils.getPokemonsTransform(dataPoke.data, offset);
+      const pokemonsTransform:Pokemon[] = PokemonUtils.getPokemonsTransform(dataPoke.data.results, offset);
+      
       const data: Pokemon[] =  await Promise.all(
         pokemonsTransform.map(async (pokemon: Pokemon) => {
           let typesData = await dataTypesPokemon(pokemon.url)

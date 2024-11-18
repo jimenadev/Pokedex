@@ -6,10 +6,10 @@ const urlImagePokemon:string = "https://raw.githubusercontent.com/PokeAPI/sprite
 export class PokemonUtils {
     
     public static getPokemonsTransform(pokemonsData: any[], offset: number): Pokemon[] {
-
+      console.log("entró",pokemonsData)
       const pokemonsRes: Pokemon[] = pokemonsData.map((pokemon: any, index:number) => ({
           id: offset + index + 1,
-          name: pokemon.name,
+          name: PokemonUtils.capitalize(pokemon.name),
           number:  PokemonUtils.formatNumber(offset, index),
           url:pokemon.url,
           urlImage:`${urlImagePokemon}/${offset + index + 1}.png`

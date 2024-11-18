@@ -1,14 +1,14 @@
-import { PokemonDTO } from './../DTO/Pokemon.dto';
-import { PokemonTypesDTO } from "../DTO/PokemonTypes.dto";
 import TypePokemon from "./TypePokemon";
+import { Pokemon } from '../redux/types/Pokemon';
+import { PokemonTypes } from "../redux/types/PokemonTypes";
 
 interface CardPokemonProps {
-    pokemon: PokemonDTO;
+    pokemon: Pokemon;
   }
 
 const CardPokemon: React.FC<CardPokemonProps> = ({ pokemon }) =>{
-    console.log("pokemon: ",pokemon)
-    return <div className={`pokemon-card pokemonCard-${pokemon.types[0].type}`}>
+    const types = pokemon.types ?? [];
+    return <div className={`pokemon-card pokemonCard-${types[0].type }`}>
                 <div className="pokemon-image">
                     <img src={pokemon.urlImage} alt="" />
                 </div>
@@ -16,7 +16,7 @@ const CardPokemon: React.FC<CardPokemonProps> = ({ pokemon }) =>{
                     <h1 className="pokemon-name">{pokemon.name}</h1>
                     <p className="pokemon-number">{pokemon.number}</p>
                     <div className="pokemon-types">
-                    {pokemon.types.map((type: PokemonTypesDTO) => (
+                    {types.map((type: PokemonTypes) => (
                         <TypePokemon
                         key={pokemon.id}
                         typePokemon={type} 

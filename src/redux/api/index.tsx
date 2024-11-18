@@ -6,6 +6,6 @@ export const apiCall = axios.create({
 
 
 export const dataTypesPokemon = async (url:string) => {
-  return  axios.get(url)
+  return await axios.get(url)
     .then(res => res.data.types)
 }

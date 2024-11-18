@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { AppDispatch } from './redux/store';
+import { isFetchingPokemonsSel, pokemonsErrSel, pokemonsSel } from "./redux/selectors/pokemons"
+import { fetchPokemons } from "./redux/actions/pokemons"; 
 import logo from "./statics/Pokedex-logo.svg"
 import Header from './components/Header';
 import Searcher from './components/Searcher';
@@ -6,39 +10,20 @@ import Order from './components/Order';
 import FilterByType from './components/FilterByType';
 import CardPokemon from './components/CardPokemon';
 import CardList from './components/CardList';
-import { getPokemons, dataPokemon } from './API';
-import { PokemonDTO } from './DTO/Pokemon.dto';
-import { PokemonTypesDTO } from './DTO/PokemonTypes.dto';
+import { Pokemon } from './redux/types/Pokemon';
 
 function App() {
 
-  const [pokemons, setPokemons] = useState<PokemonDTO[]>([]);
-  const limit = 9;
-  const [offset, setOffset] = useState(0);
+  const dispatch: AppDispatch = useDispatch(); 
+  const isFetchingPokemons = useSelector(isFetchingPokemonsSel, shallowEqual)
+  const pokemons = useSelector(pokemonsSel, shallowEqual)
+  const pokemonsErr = useSelector(pokemonsErrSel, shallowEqual)
 
   useEffect(() => {
-    const fetchPokemons = async () =>{
-      const pokemonsData = await getPokemons(limit, offset);
-      const pokemonsRes = pokemonsData.map((pokemon: any, index:number) => ({
-        id: offset + index + 1,
-        name: pokemon.name,
-        number:  `#${String(offset + index + 1).padStart(3, '0')}`,
-        url:pokemon.url,
-        urlImage:`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${offset + index + 1}.png`
-      }))
-      
-
-      const pokemons = await Promise.all(
-        pokemonsRes.map(async (pokemon: PokemonDTO) => {
-          let types: PokemonTypesDTO[] = await dataPokemon(pokemon.url);
-          return { ...pokemon, types };
-        })
-      );
-      
-      setPokemons(pokemons);
-    } 
-    fetchPokemons()
-  }, [])
+    const limit = 21;
+    const offset = 0
+    dispatch(fetchPokemons(limit, offset));    
+  }, []);
 
 
   return (
@@ -58,7 +43,7 @@ function App() {
         </div>
       </Header>
       <CardList>
-      {pokemons.map((pokemon: PokemonDTO) => (
+      {pokemons.map((pokemon: Pokemon) => (
         <CardPokemon
           key={pokemon.id}
           pokemon={pokemon} 
