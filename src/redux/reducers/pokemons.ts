@@ -12,6 +12,10 @@ import {
     isFetchingPokemons: false,
     error: undefined,
     pokemons: [],
+    limit:30,
+    offset:0,
+    totalPage:6,
+    currentPage:1
   };
 
   const pokemonReducer = createReducer(initialState, (builder) => {

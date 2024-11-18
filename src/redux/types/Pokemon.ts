@@ -4,6 +4,10 @@ export interface PokemonState {
     isFetchingPokemons: boolean;
     error?: string | undefined; 
     pokemons: Pokemon[];
+    limit:number;
+    offset:number;
+    totalPage:number;
+    currentPage:number;
 }
 
 

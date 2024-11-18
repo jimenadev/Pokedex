@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { AppDispatch } from './redux/store';
-import { isFetchingPokemonsSel, pokemonsErrSel, pokemonsSel } from "./redux/selectors/pokemons"
+import { currentPageSel, isFetchingPokemonsSel, limitSel, offsetSel, pokemonsErrSel, pokemonsSel, totalPageSel } from "./redux/selectors/pokemons"
 import { fetchPokemons } from "./redux/actions/pokemons"; 
 import logo from "./statics/Pokedex-logo.svg"
 import Header from './components/Header';
@@ -23,10 +23,12 @@ function App() {
   const isFetchingPokemons = useSelector(isFetchingPokemonsSel, shallowEqual)
   const pokemons = useSelector(pokemonsSel, shallowEqual)
   const pokemonsErr = useSelector(pokemonsErrSel, shallowEqual)
+  const limit = useSelector(limitSel, shallowEqual)
+  const offset = useSelector(offsetSel, shallowEqual)
+  const totalPage = useSelector(totalPageSel, shallowEqual)
+  const currentPage = useSelector(currentPageSel, shallowEqual)
 
   useEffect(() => {
-    const limit = 30;
-    const offset = 0
     dispatch(fetchPokemons(limit, offset));    
   }, []);
 
@@ -68,12 +70,11 @@ function App() {
       }
 
     <Pager>
-      <Page pageNumber={1} selected={true} />
-      <Page pageNumber={2} selected={false} />
-      <Page pageNumber={3} selected={false} />
-      <Page pageNumber={4} selected={false} />
-      <Page pageNumber={5} selected={false} />
-      <Page pageNumber={6} selected={false} />
+    {!isFetchingPokemons && !pokemonsErr && pokemons.length > 0 && 
+         Array.from({ length: totalPage }).map((_, index) => (
+          <Page key={index} pageNumber={index + 1} selected={(currentPage === (index + 1) ) ? true : false} />
+        ))
+      }
     </Pager>
     </div>
   );
