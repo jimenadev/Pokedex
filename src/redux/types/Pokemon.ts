@@ -22,6 +22,12 @@ export interface SuccessFetchingPokemonsPayload {
 export interface ErrorFetchingPokemonsPayload {
     error: string;
 }
+
+export interface ChangePagePokemonsPayload {
+    offset:number,
+    currentPage:number,
+    typeAction?:string | undefined,
+}
   
 export interface Pokemon{
     id:number;

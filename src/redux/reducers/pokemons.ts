@@ -5,16 +5,21 @@ import { PokemonState } from "../types/Pokemon";
 import { 
     startFetchingPokemons,
     errorFetchingPokemons,
-    successFetchingPokemons
+    successFetchingPokemons,
   } from "../actions/pokemons";
+
+ import { 
+  changePagePokemon,
+  errorChangePagePokemon,
+ } from "../actions/pager"
 
   const initialState: PokemonState = {
     isFetchingPokemons: false,
     error: undefined,
     pokemons: [],
-    limit:30,
+    limit:21,
     offset:0,
-    totalPage:6,
+    totalPage:8,
     currentPage:1
   };
 
@@ -33,6 +38,23 @@ import {
       }
     })
     .addCase(errorFetchingPokemons, (state, action) => {
+      return {
+        ...state,
+        isFetchingPokemons: false,
+        pokemons: [],
+        error: action.payload.error,
+      }
+    })
+    .addCase(changePagePokemon, (state, action) => {
+      return {
+        ...state,
+        isFetchingPokemons: true,
+        pokemons: [],
+        offset: action.payload.offset,
+        currentPage: action.payload.currentPage,
+      }
+    })
+    .addCase(errorChangePagePokemon, (state, action) => {
       return {
         ...state,
         isFetchingPokemons: false,

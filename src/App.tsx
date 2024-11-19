@@ -3,6 +3,7 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { AppDispatch } from './redux/store';
 import { currentPageSel, isFetchingPokemonsSel, limitSel, offsetSel, pokemonsErrSel, pokemonsSel, totalPageSel } from "./redux/selectors/pokemons"
 import { fetchPokemons } from "./redux/actions/pokemons"; 
+import { skipPagePokemons } from "./redux/actions/pager"; 
 import logo from "./statics/Pokedex-logo.svg"
 import Header from './components/Header';
 import Searcher from './components/Searcher';
@@ -28,9 +29,24 @@ function App() {
   const totalPage = useSelector(totalPageSel, shallowEqual)
   const currentPage = useSelector(currentPageSel, shallowEqual)
 
+  const handleChangePage: React.MouseEventHandler<HTMLDivElement> = (event) => {
+
+    const target = event.currentTarget as HTMLElement;
+    const typeAction: string | undefined = target.getAttribute("title")?.toString() 
+    let changePage = currentPage
+    if(typeAction === 'page'){
+      changePage = parseInt(target.innerHTML)
+    }
+    dispatch(skipPagePokemons(limit, offset, changePage,totalPage,typeAction)); 
+
+   };  
+
   useEffect(() => {
-    dispatch(fetchPokemons(limit, offset));    
-  }, []);
+    dispatch(fetchPokemons(limit, offset));  
+  }, [currentPage]);
+
+
+
 
 
   return (
@@ -56,7 +72,7 @@ function App() {
         <CardPokemonLoading/>
       </CardListLoading>}
 
-      { (pokemonsErr || pokemons.length === 0) && <Error />}
+      { ((!isFetchingPokemons && pokemonsErr) || (!isFetchingPokemons && pokemons.length === 0)) && <Error />}
 
       {!isFetchingPokemons && !pokemonsErr && pokemons.length > 0 && 
        <CardList>
@@ -69,10 +85,10 @@ function App() {
        </CardList>
       }
 
-    <Pager>
+    <Pager handleChangePage={handleChangePage} >
     {!isFetchingPokemons && !pokemonsErr && pokemons.length > 0 && 
          Array.from({ length: totalPage }).map((_, index) => (
-          <Page key={index} pageNumber={index + 1} selected={(currentPage === (index + 1) ) ? true : false} />
+          <Page key={index} pageNumber={index + 1}  selected={currentPage === (index + 1)}  handleChangePage={handleChangePage} />
         ))
       }
     </Pager>
