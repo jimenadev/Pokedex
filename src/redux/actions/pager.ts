@@ -15,26 +15,25 @@ export const skipPagePokemons = (
     try {
       let newPage = 1;
       let newOffset = 0;
-      switch(typeAction){
-        case 'prev':
-          if(currentPage>1){
-            newPage = currentPage - 1;
-            newOffset = offset - limit;
+      if(!((currentPage === 1 && typeAction === 'prev') || (currentPage === totalPage && typeAction === 'next'))){
+          switch(typeAction){
+            case 'prev':
+                newPage = currentPage - 1;
+                newOffset = offset - limit;
+              break;
+            case 'next':
+                newPage = currentPage + 1;
+                newOffset = offset + limit;
+              break;
+            case 'page':
+                newPage = currentPage;
+                newOffset = limit*(newPage-1);
+              break;  
           }
-          break;
-        case 'next':
-          if(currentPage<totalPage){
-            newPage = currentPage + 1;
-            newOffset = offset + limit;
-          }
-          break;
-        case 'page':
-            newPage = currentPage;
-            newOffset = limit*(newPage-1);
-          break;
+          dispatch(changePagePokemon({offset:newOffset, currentPage:newPage}));
       }
+          
       
-      dispatch(changePagePokemon({offset:newOffset, currentPage:newPage}));
     } catch (error: any) {
       dispatch(errorChangePagePokemon(error));
     }

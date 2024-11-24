@@ -66,11 +66,13 @@ function App() {
         </div>
       </Header>
 
-      {isFetchingPokemons && <CardListLoading>
-        <CardPokemonLoading/>
-        <CardPokemonLoading/>
-        <CardPokemonLoading/>
-      </CardListLoading>}
+      {isFetchingPokemons && 
+      <CardListLoading>
+        {Array.from({ length: limit }).map((_, index) => (
+          <CardPokemonLoading key={index} />
+        ))}
+      </CardListLoading>
+      }
 
       { ((!isFetchingPokemons && pokemonsErr) || (!isFetchingPokemons && pokemons.length === 0)) && <Error />}
 
