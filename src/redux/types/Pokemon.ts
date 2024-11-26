@@ -8,19 +8,27 @@ export interface PokemonState {
     offset:number;
     totalPage:number;
     currentPage:number;
+    search:string;
 }
 
 
 export interface RootState {
     pokemonReducer: PokemonState;
   }
-
-export interface SuccessFetchingPokemonsPayload {
-    data: Pokemon[];
-}
   
 export interface ErrorFetchingPokemonsPayload {
     error: string;
+}
+
+export interface  SuccessFetchingPokemonsPayload{
+    data: Pokemon[];
+}
+
+export interface SuccessSearchPokemonsPayload {
+    offset:number;
+    totalPage:number;
+    currentPage:number;
+    data?: Pokemon[] | undefined;
 }
 
 export interface ChangePagePokemonsPayload {

@@ -17,8 +17,6 @@ const Pager = ({ handleChangePage, children}: ContenedorProps)  =>{
     const offset = useSelector(offsetSel, shallowEqual)
     const totalPage = useSelector(totalPageSel, shallowEqual)
     const currentPage = useSelector(currentPageSel, shallowEqual)
-    
-
 
 
     return    <div id="pager">

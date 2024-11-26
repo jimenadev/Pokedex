@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { AppDispatch } from './redux/store';
 import { currentPageSel, isFetchingPokemonsSel, limitSel, offsetSel, pokemonsErrSel, pokemonsSel, totalPageSel } from "./redux/selectors/pokemons"
@@ -41,12 +41,15 @@ function App() {
 
    };  
 
+   const [search, setSearch] = useState("");
+
+   const handleSearch = (search:string) => {
+    setSearch(search);
+   };  
+
   useEffect(() => {
-    dispatch(fetchPokemons(limit, offset));  
-  }, [currentPage]);
-
-
-
+    dispatch(fetchPokemons(limit, offset, search));  
+  }, [currentPage, search]);
 
 
   return (
@@ -55,7 +58,7 @@ function App() {
         <div className="logo" >
             <img src={logo} alt="logo"/>
         </div>
-       <Searcher />
+       <Searcher handleSearch={handleSearch}/>
        <div className="filters">
           <div className="orderPokemon">
             <Order />

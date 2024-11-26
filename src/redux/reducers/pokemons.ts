@@ -6,12 +6,15 @@ import {
     startFetchingPokemons,
     errorFetchingPokemons,
     successFetchingPokemons,
+    successSearchPokemons
   } from "../actions/pokemons";
 
  import { 
   changePagePokemon,
   errorChangePagePokemon,
  } from "../actions/pager"
+
+
 
   const initialState: PokemonState = {
     isFetchingPokemons: false,
@@ -20,7 +23,8 @@ import {
     limit:21,
     offset:0,
     totalPage:8,
-    currentPage:1
+    currentPage:1,
+    search:""
   };
 
   const pokemonReducer = createReducer(initialState, (builder) => {
@@ -60,6 +64,16 @@ import {
         isFetchingPokemons: false,
         pokemons: [],
         error: action.payload.error,
+      }
+    })
+    .addCase(successSearchPokemons, (state, action) => {
+      return {
+        ...state,
+        isFetchingPokemons: false,
+        offset:action.payload.offset,
+        totalPage:action.payload.totalPage,
+        currentPage: action.payload.currentPage,
+        pokemons: action.payload.data ?? [] ,
       }
     })
     .addDefaultCase((state, action) => {
