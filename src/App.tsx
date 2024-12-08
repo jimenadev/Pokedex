@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { AppDispatch } from './redux/store';
-import { currentPageSel, isFetchingPokemonsSel, limitSel, offsetSel, pokemonsErrSel, pokemonsSel, totalPageSel } from "./redux/selectors/pokemons"
-import { fetchPokemons } from "./redux/actions/pokemons"; 
+import { currentPageSel, isFetchingPokemonsSel, limitSel, offsetSel, pokemonsDisplaySel, pokemonsErrSel, pokemonsSel, totalPageSel, totalPokemonsSel } from "./redux/selectors/pokemons"
+import { fetchPokemons, pokemonPerPage } from "./redux/actions/pokemons"; 
 import { skipPagePokemons } from "./redux/actions/pager"; 
 import logo from "./statics/Pokedex-logo.svg"
 import Header from './components/Header';
@@ -21,13 +21,30 @@ import Page from './components/Page';
 function App() {
 
   const dispatch: AppDispatch = useDispatch(); 
+  const totalPokemons = useSelector(totalPokemonsSel, shallowEqual)
   const isFetchingPokemons = useSelector(isFetchingPokemonsSel, shallowEqual)
   const pokemons = useSelector(pokemonsSel, shallowEqual)
+  const pokemonsDisplay = useSelector(pokemonsDisplaySel, shallowEqual)
   const pokemonsErr = useSelector(pokemonsErrSel, shallowEqual)
   const limit = useSelector(limitSel, shallowEqual)
   const offset = useSelector(offsetSel, shallowEqual)
   const totalPage = useSelector(totalPageSel, shallowEqual)
   const currentPage = useSelector(currentPageSel, shallowEqual)
+  
+  const [search, setSearch] = useState("");
+
+  const handleSearch = (search:string) => {
+    setSearch(search);
+  };  
+
+  useEffect(() => {
+    dispatch(fetchPokemons(totalPokemons));  
+  }, []);
+
+  useEffect(() => {
+    dispatch(pokemonPerPage(pokemons, limit, offset, totalPage, currentPage, search));  
+  }, [pokemons, currentPage, search]);
+
 
   const handleChangePage: React.MouseEventHandler<HTMLDivElement> = (event) => {
 
@@ -40,17 +57,6 @@ function App() {
     dispatch(skipPagePokemons(limit, offset, changePage,totalPage,typeAction)); 
 
    };  
-
-   const [search, setSearch] = useState("");
-
-   const handleSearch = (search:string) => {
-    setSearch(search);
-   };  
-
-  useEffect(() => {
-    dispatch(fetchPokemons(limit, offset, search));  
-  }, [currentPage, search]);
-
 
   return (
     <div className="app">
@@ -77,11 +83,11 @@ function App() {
       </CardListLoading>
       }
 
-      { ((!isFetchingPokemons && pokemonsErr) || (!isFetchingPokemons && pokemons.length === 0)) && <Error />}
+      { ((!isFetchingPokemons && pokemonsErr) || (!isFetchingPokemons && pokemonsDisplay.length === 0)) && <Error />}
 
-      {!isFetchingPokemons && !pokemonsErr && pokemons.length > 0 && 
+      {!isFetchingPokemons && !pokemonsErr && pokemonsDisplay.length > 0 && 
        <CardList>
-       {pokemons.map((pokemon: Pokemon) => (
+       {pokemonsDisplay.map((pokemon: Pokemon) => (
          <CardPokemon
            key={pokemon.id}
            pokemon={pokemon} 
@@ -91,7 +97,7 @@ function App() {
       }
 
     <Pager handleChangePage={handleChangePage} >
-    {!isFetchingPokemons && !pokemonsErr && pokemons.length > 0 && 
+    {!isFetchingPokemons && !pokemonsErr && pokemonsDisplay.length > 0 && 
          Array.from({ length: totalPage }).map((_, index) => (
           <Page key={index} pageNumber={index + 1}  selected={currentPage === (index + 1)}  handleChangePage={handleChangePage} />
         ))

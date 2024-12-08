@@ -5,7 +5,22 @@ const urlImagePokemon:string = "https://raw.githubusercontent.com/PokeAPI/sprite
 
 export class PokemonUtils {
     
-    public static getPokemonsTransform(pokemonsData: any[], offset: number): Pokemon[] {
+    public static getPokemonsTransform(pokemonsData: any[]): Pokemon[] {
+
+      const pokemonsRes: Pokemon[] = pokemonsData.map((pokemon: any, index:number) => ({
+          id: index + 1,
+          name: PokemonUtils.capitalize(pokemon.name),
+          number:  PokemonUtils.formatNumber(index),
+          url:pokemon.url,
+          urlImage:`${urlImagePokemon}/${index + 1}.png`
+        }) 
+      );
+
+      return pokemonsRes
+          
+    }
+
+    /*public static getPokemonsTransform(pokemonsData: any[], offset: number): Pokemon[] {
 
       const pokemonsRes: Pokemon[] = pokemonsData.map((pokemon: any, index:number) => ({
           id: offset + index + 1,
@@ -18,7 +33,7 @@ export class PokemonUtils {
 
       return pokemonsRes
           
-    }
+    }*/
 
     public static async getPokemonsTypeTransform(pokemonsDataTypes:any) { 
       
@@ -32,9 +47,13 @@ export class PokemonUtils {
         return types;
     }
 
-    public static formatNumber(offset:number, index:number){
-      return `#${String(offset + index + 1).padStart(3, '0')}`
+    public static formatNumber(index:number){
+      return `#${String(index + 1).padStart(3, '0')}`
     }
+
+    /*public static formatNumber(offset:number, index:number){
+      return `#${String(offset + index + 1).padStart(3, '0')}`
+    }*/
 
     // Método para capitalizar la primera letra de una cadena
     public static capitalize(text: string): string {

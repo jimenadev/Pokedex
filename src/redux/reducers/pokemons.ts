@@ -6,7 +6,8 @@ import {
     startFetchingPokemons,
     errorFetchingPokemons,
     successFetchingPokemons,
-    successSearchPokemons
+    successSearchPokemons,
+    successFetchingPokemonsDisplay
   } from "../actions/pokemons";
 
  import { 
@@ -20,9 +21,11 @@ import {
     isFetchingPokemons: false,
     error: undefined,
     pokemons: [],
-    limit:21,
+    pokemonsDisplay:[],
+    totalPokemon:700,
+    limit:70,
     offset:0,
-    totalPage:8,
+    totalPage:10,
     currentPage:1,
     search:""
   };
@@ -45,15 +48,25 @@ import {
       return {
         ...state,
         isFetchingPokemons: false,
-        pokemons: [],
+        pokemonsDisplay: [],
         error: action.payload.error,
+      }
+    })
+    .addCase(successFetchingPokemonsDisplay, (state, action) => {
+      return {
+        ...state,
+        isFetchingPokemons: false,
+        offset: action.payload.offset,
+        currentPage: action.payload.currentPage,
+        totalPage: action.payload.totalPage,
+        pokemonsDisplay: action.payload.dataDisplay,
       }
     })
     .addCase(changePagePokemon, (state, action) => {
       return {
         ...state,
         isFetchingPokemons: true,
-        pokemons: [],
+        pokemonsDisplay: [],
         offset: action.payload.offset,
         currentPage: action.payload.currentPage,
       }
@@ -62,7 +75,7 @@ import {
       return {
         ...state,
         isFetchingPokemons: false,
-        pokemons: [],
+        pokemonsDisplay: [],
         error: action.payload.error,
       }
     })

@@ -4,6 +4,8 @@ export interface PokemonState {
     isFetchingPokemons: boolean;
     error?: string | undefined; 
     pokemons: Pokemon[];
+    pokemonsDisplay:  Pokemon[];
+    totalPokemon:number,
     limit:number;
     offset:number;
     totalPage:number;
@@ -24,11 +26,20 @@ export interface  SuccessFetchingPokemonsPayload{
     data: Pokemon[];
 }
 
+export interface SuccessFetchingPokemonsDisplayPayload{
+    offset:number;
+    totalPage:number;
+    currentPage:number;
+    dataDisplay: Pokemon[];
+}
+
 export interface SuccessSearchPokemonsPayload {
     offset:number;
     totalPage:number;
     currentPage:number;
     data?: Pokemon[] | undefined;
+    dataDisplay?: Pokemon[] | undefined;
+    
 }
 
 export interface ChangePagePokemonsPayload {
