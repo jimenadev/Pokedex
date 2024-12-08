@@ -17,6 +17,7 @@ import CardPokemonLoading from './components/CardPokemonLoading';
 import Error from './components/Error';
 import Pager from './components/Pager';
 import Page from './components/Page';
+import { Sort } from './redux/types/sort.enum';
 
 function App() {
 
@@ -32,9 +33,14 @@ function App() {
   const currentPage = useSelector(currentPageSel, shallowEqual)
   
   const [search, setSearch] = useState("");
+  const [order, setOrder] = useState(Sort.LowestNumberFirst);
 
   const handleSearch = (search:string) => {
     setSearch(search);
+  };  
+
+  const handleOrder = (order:Sort) => {
+    setOrder(order);
   };  
 
   useEffect(() => {
@@ -42,8 +48,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    dispatch(pokemonPerPage(pokemons, limit, offset, totalPage, currentPage, search));  
-  }, [pokemons, currentPage, search]);
+    dispatch(pokemonPerPage(totalPokemons, pokemons, limit, offset, totalPage, currentPage, search, order));  
+  }, [pokemons, currentPage, search, order]);
 
 
   const handleChangePage: React.MouseEventHandler<HTMLDivElement> = (event) => {
@@ -67,7 +73,7 @@ function App() {
        <Searcher handleSearch={handleSearch}/>
        <div className="filters">
           <div className="orderPokemon">
-            <Order />
+            <Order handleOrder={handleOrder} />
           </div>
           <div className="filtersPokemonType">
             <FilterByType />   

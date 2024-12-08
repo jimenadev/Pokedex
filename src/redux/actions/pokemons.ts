@@ -4,6 +4,7 @@ import { apiCall, dataTypesPokemon } from "../api";
 import { ErrorFetchingPokemonsPayload, Pokemon, SuccessFetchingPokemonsDisplayPayload, SuccessFetchingPokemonsPayload, SuccessSearchPokemonsPayload } from "../types/Pokemon";
 import { PokemonUtils } from "../utils/PokemonUtils";
 import { PokemonTypes } from "../types/PokemonTypes";
+import { Sort } from "../types/sort.enum";
 
 export const startFetchingPokemons = createAction("START_FETCHING_POKEMONS");
 export const errorFetchingPokemons = createAction<ErrorFetchingPokemonsPayload>("ERROR_FETCHING_POKEMONS");
@@ -37,21 +38,23 @@ export const fetchPokemons = (
 
 
   export const pokemonPerPage = (
+    totalPokemons:number,
     pokemons:Pokemon[],
     limit:number, 
     offset:number,
     totalPage:number, 
     currentPage:number,
     search:string,
+    order:Sort
 ):  AppThunk  => async (dispatch) => {
     try {
       dispatch(startFetchingPokemons());
+      let dataDisplay: Pokemon[] = [];
 
       if(search){
-        let pokemonsSearch: Pokemon[] = [];
         let searchSplit: string[] = search.toLowerCase().split(" ")
 
-        pokemonsSearch = pokemons
+        dataDisplay = pokemons
           .filter((pokemon: Pokemon) =>
             searchSplit.includes(pokemon.name.toLowerCase()) ||
             searchSplit.includes(pokemon.number.toLowerCase()) ||
@@ -61,20 +64,27 @@ export const fetchPokemons = (
             ...pokemon,
           }));
 
-        const offset:number = 0;
-        const totalPage:number =1;
-        const currentPage:number = 1; 
+        offset = 0;
+        totalPage = 1;
+        currentPage = 1; 
 
-        dispatch(successFetchingPokemonsDisplay({offset, totalPage, currentPage, dataDisplay:pokemonsSearch}))
+        if(order === Sort.HighestNumberFirst){
+          dataDisplay.reverse()
+        }else if(order !== Sort.LowestNumberFirst){
+          dataDisplay = sort(dataDisplay, order, totalPokemons, offset, limit )
+        }
 
       }else{
 
-        const dataDisplay: Pokemon[]  = pokemons.slice(offset, offset + limit)
-
-        dispatch(successFetchingPokemonsDisplay({offset, totalPage, currentPage, dataDisplay}))
+        if(order !== Sort.LowestNumberFirst){
+          dataDisplay = sort(pokemons, order, totalPokemons, offset, limit )
+        }else{
+          dataDisplay  = pokemons.slice(offset, offset + limit)
+        }
 
       }
-      
+
+      dispatch(successFetchingPokemonsDisplay({offset, totalPage, currentPage, dataDisplay}))
       
       
     } catch (error: any) {
@@ -83,4 +93,21 @@ export const fetchPokemons = (
   } 
 
 
+  const sort = (pokemons:Pokemon[], order:Sort, totalPokemons:number, offset:number, limit:number ) =>{
 
+    let dataDisplay: Pokemon[] = [];
+
+    if(order === Sort.HighestNumberFirst){
+      dataDisplay = pokemons.slice(totalPokemons - offset - limit, (totalPokemons - offset - limit) + limit)
+                            .reverse()
+    }else if(order === Sort.A_Z){
+      dataDisplay = [...pokemons].sort( (a,b) => a.name.localeCompare(b.name))
+                                .slice(offset, offset + limit)
+    }else if(order === Sort.Z_A){
+      dataDisplay = [...pokemons].sort( (a,b) => b.name.localeCompare(a.name))
+                                .slice(offset, offset + limit)
+    }
+
+    return dataDisplay
+
+  }

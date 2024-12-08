@@ -1,24 +1,31 @@
 import { useState } from "react";
+import { Sort } from "../redux/types/sort.enum";
 
-const Order = () =>{
+type ContenedorProps = {
+    handleOrder: (order:Sort) => void;
+};
 
-    const [selected, setSelected] = useState('Lowest Number First');
+const Order = ({handleOrder}: ContenedorProps) =>{
+
+    const [selected, setSelected] = useState(Sort.LowestNumberFirst);
     const [isOpen, setIsOpen] = useState(false);
 
     const [isOpenArrow, setIsOpenArrow] = useState(false);
 
-    const options = ['Lowest Number First', 'Highest Number First', 'Alphabetically (A-Z)', 'Alphabetically (Z-A)'];
+    const options = [Sort.LowestNumberFirst, Sort.HighestNumberFirst, Sort.A_Z, Sort.Z_A];
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
         setIsOpenArrow(!isOpenArrow);
     }
 
-    const selectOption = (option: string) => {
+    const selectOption = (option: Sort) => {
         setSelected(option);
         setIsOpen(false);
         setIsOpenArrow(false);
+        handleOrder(option);
     };
+
 
     return   <div className="custom-select-container">
                 <div className="custom-select-display" onClick={toggleDropdown}>
