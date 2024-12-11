@@ -18,8 +18,12 @@ import Error from './components/Error';
 import Pager from './components/Pager';
 import Page from './components/Page';
 import { Sort } from './redux/types/sort.enum';
+import Filters from './components/Filters';
+import TypesFilters from './components/TypesFilters';
 
 function App() {
+
+
 
   const dispatch: AppDispatch = useDispatch(); 
   const totalPokemons = useSelector(totalPokemonsSel, shallowEqual)
@@ -34,6 +38,7 @@ function App() {
   
   const [search, setSearch] = useState("");
   const [order, setOrder] = useState(Sort.LowestNumberFirst);
+  const [modalFilter, setModalFilter] = useState(false);
 
   const handleSearch = (search:string) => {
     setSearch(search);
@@ -42,6 +47,10 @@ function App() {
   const handleOrder = (order:Sort) => {
     setOrder(order);
   };  
+
+  const handleFilter = (modalFilter:boolean) => setModalFilter(modalFilter)
+
+  const onClose = () => setModalFilter(false);
 
   useEffect(() => {
     dispatch(fetchPokemons(totalPokemons));  
@@ -66,6 +75,9 @@ function App() {
 
   return (
     <div className="app">
+        <Filters isOpen={modalFilter} onClose={onClose}>
+           <TypesFilters />
+        </Filters>
       <Header>
         <div className="logo" >
             <img src={logo} alt="logo"/>
@@ -76,7 +88,7 @@ function App() {
             <Order handleOrder={handleOrder} />
           </div>
           <div className="filtersPokemonType">
-            <FilterByType />   
+            <FilterByType handleFilter={handleFilter} />   
           </div>
         </div>
       </Header>

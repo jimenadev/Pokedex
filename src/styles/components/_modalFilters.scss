@@ -1,0 +1,91 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(100%);
+  transition:transform 0.2s, opacity 0.5s 0.3s, background-color 0.2s; /* Retraso de 300ms para que la modal aparezca primero */
+  z-index: 1000;
+
+  &.modal-open {
+    transform: translateX(0);
+    opacity: 1; /* Aparece suavemente */
+    background-color: rgba(0, 0, 0, 0.5); /* Color visible */
+    
+     .modal-content {
+        transform: translateX(0);
+      }
+  }
+
+  &.modal-close {
+    transition:transform 5s, opacity 0.5s 0.3s, background-color 0.2s;; 
+    transform: translateX(100%); /* Sale de la pantalla */
+    opacity: 0; /* Desaparece suavemente */
+    background-color: rgba(0, 0, 0, 0); /* Fondo transparente */
+     .modal-content {
+        transform: translateX(100%);
+      }
+  }
+
+  
+
+  .modal-content {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 336px;
+      height: 100%;
+      background:$light-gray;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2); /* Sombra opcional */
+      z-index: 1001; /* Debe estar por encima de la capa semitransparente */
+      display: flex;
+      flex-direction: column;
+
+      transform: translateX(100%);
+      transition: transform 0.5s;
+
+      .linea{
+        width: 100%;
+        border-bottom: 1px solid $dark-gray-opacity-24;
+      }
+     
+
+      .modal-content-titles{
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin: 5px auto;
+        
+
+        .modal-title{
+            font-size: $font-size-body;
+            color: $dark-gray;
+        }
+
+        .modal-close{
+            height: 100%;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+
+        }
+      }
+
+      .modal-content-filters{
+
+      }
+
+
+
+          
+    }
+}

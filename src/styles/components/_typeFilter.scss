@@ -1,0 +1,105 @@
+.container-types{
+    width: 80%;
+    margin: 10px auto;
+    min-height: 100vh;
+
+    .type-title{
+        color: $dark-gray-opacity-60;
+        font-size:$font-size-body2;
+        font-weight:$font-weight-body2;
+        margin: 20px 0;
+    }
+
+    .container-names-types{
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+        gap: 20px; /* Espaciado entre columnas y filas */
+ 
+        .type-item {
+            font-size:$font-size-body2;
+            color:$dark-gray;
+            cursor: pointer;
+
+            input[type="checkbox"] {
+                display: none;
+            }
+
+            label {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                position: relative;
+                padding-left: 30px; /* Espacio para el checkbox */
+                font-size: 16px;
+                user-select: none; /* Evita selección de texto al hacer clic */
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 15px;
+                    height: 15px;
+                    background-color: $white; /* Color predeterminado */
+                    border: 2px solid $dark-gray;
+                    border-radius: 4px; /* Bordes redondeados */
+                    transition: background-color 0.3s, border-color 0.3s;
+                  }
+                  
+              }
+
+            input[type="checkbox"]:checked + label::before {
+                background-color: $blue; /* Color de fondo al marcar */
+                border-color:$blue; /* Color del borde al marcar */
+            }
+
+            input[type="checkbox"]:checked + label::after {
+                content: "✔";
+                position: absolute;
+                left: 5px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 14px;
+                color: $dark-gray; /* Color de la marca */
+              }
+        }
+    }
+
+    .buttons-types{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        padding: 10px 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 20px;
+
+        .button-reset-filters{
+           width: 141px;
+           height: 43px;
+           color: $dark-blue;
+           background-color: $white;
+           border-radius: 8px;
+           border: 1px solid $dark-blue;
+           cursor: pointer;
+        }
+    
+        .button-apply-filters{
+            width: 141px;
+            height: 43px;
+            color: $dark-blue;
+            background-color: $blue;
+            border-radius: 8px;
+            border: 1px solid $blue;
+            cursor: pointer;
+        }
+
+    }
+
+   
+}
+
+
