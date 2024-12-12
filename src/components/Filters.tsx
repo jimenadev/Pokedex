@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import iconClose from "./../statics/close.svg"
 
 interface ModalProps {

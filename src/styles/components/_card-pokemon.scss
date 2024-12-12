@@ -10,6 +10,8 @@
     align-items: end;
     box-shadow: 0 11px 20px 0 rgb(145, 145, 145, 0.16);
     transition: transform 0.3s ease;
+    cursor: pointer;
+    
     &:hover {
         transform: translateY(-20px);
     }

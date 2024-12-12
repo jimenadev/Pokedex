@@ -20,6 +20,7 @@ import Page from './components/Page';
 import { Sort } from './redux/types/sort.enum';
 import Filters from './components/Filters';
 import TypesFilters from './components/TypesFilters';
+import ModalAboutPokemon from './components/ModalAboutPokemon';
 
 function App() {
 
@@ -38,6 +39,8 @@ function App() {
   const [order, setOrder] = useState(Sort.LowestNumberFirst);
   const [modalFilter, setModalFilter] = useState(false);
   const [selectedItemsFilter, setSelectedItemsFilter] = useState<string[]>([]);
+  const [pokemonId, setPokemonId] = useState(0);
+  const [isOpenModalPokemon, setIsOpenModalPokemon] = useState(false);
 
   const handleSearch = (search:string) => {
     setSearch(search);
@@ -53,8 +56,21 @@ function App() {
 
   const filtered = (selectedFilter:string[]) =>{
     setSelectedItemsFilter(selectedFilter)
-    console.log("selectedItemsFilter:  ",selectedItemsFilter)
     dispatch(pokemonPerPage(totalPokemons, pokemons, limit, offset, totalPage, currentPage, search, order, selectedItemsFilter));  
+  }
+
+  const openModalPokemon = (pokemonId:number) =>{
+    if(pokemonId){
+      setPokemonId(pokemonId);
+      setIsOpenModalPokemon(true)
+    }else{
+      setPokemonId(0);
+      setIsOpenModalPokemon(false)
+    }
+  }
+  const closeModalPokemon = () =>{
+    setPokemonId(0);
+    setIsOpenModalPokemon(false)
   }
 
   useEffect(() => {
@@ -82,9 +98,10 @@ function App() {
 
   return (
     <div className="app">
-        <Filters isOpen={modalFilter} onClose={onClose}>
-           <TypesFilters filtered={filtered} />
-        </Filters>
+      <ModalAboutPokemon isOpen={isOpenModalPokemon} pokemonId={pokemonId} closeModalPokemon={closeModalPokemon}/>
+      <Filters isOpen={modalFilter} onClose={onClose}>
+          <TypesFilters filtered={filtered} />
+      </Filters>
       <Header>
         <div className="logo" >
             <img src={logo} alt="logo"/>
@@ -116,6 +133,7 @@ function App() {
          <CardPokemon
            key={pokemon.id}
            pokemon={pokemon} 
+           openModalPokemon={openModalPokemon}
          />
        ))}
        </CardList>
