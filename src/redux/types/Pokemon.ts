@@ -11,6 +11,7 @@ export interface PokemonState {
     totalPage:number;
     currentPage:number;
     search:string;
+    filters:string[];
 }
 
 

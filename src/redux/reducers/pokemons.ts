@@ -27,7 +27,8 @@ import {
     offset:0,
     totalPage:10,
     currentPage:1,
-    search:""
+    search:"",
+    filters:[]
   };
 
   const pokemonReducer = createReducer(initialState, (builder) => {

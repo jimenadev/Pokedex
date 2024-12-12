@@ -45,7 +45,8 @@ export const fetchPokemons = (
     totalPage:number, 
     currentPage:number,
     search:string,
-    order:Sort
+    order:Sort,
+    filters:string[],
 ):  AppThunk  => async (dispatch) => {
     try {
       dispatch(startFetchingPokemons());
@@ -74,6 +75,27 @@ export const fetchPokemons = (
           dataDisplay = sort(dataDisplay, order, totalPokemons, offset, limit )
         }
 
+      }else if(filters.length>0){
+
+        const filtersFormatted= filters.map((item) => item.toLowerCase()) 
+    
+        dataDisplay = pokemons
+                          .filter((p: Pokemon) => p.types?.some((t) => filtersFormatted.includes(t.type)))
+                          .map((pokemon: Pokemon) => ({
+                                  ...pokemon,
+                          }));
+
+        offset = 0;
+        totalPage = 1;
+        currentPage = 1; 
+                  
+
+        if(order === Sort.HighestNumberFirst){
+          dataDisplay.reverse()
+        }else if(order !== Sort.LowestNumberFirst){
+          dataDisplay = sort(dataDisplay, order, totalPokemons, offset, limit )
+        }
+    
       }else{
 
         if(order !== Sort.LowestNumberFirst){
@@ -84,8 +106,9 @@ export const fetchPokemons = (
 
       }
 
+     
+
       dispatch(successFetchingPokemonsDisplay({offset, totalPage, currentPage, dataDisplay}))
-      
       
     } catch (error: any) {
       dispatch(errorFetchingPokemons(error));

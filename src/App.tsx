@@ -23,8 +23,6 @@ import TypesFilters from './components/TypesFilters';
 
 function App() {
 
-
-
   const dispatch: AppDispatch = useDispatch(); 
   const totalPokemons = useSelector(totalPokemonsSel, shallowEqual)
   const isFetchingPokemons = useSelector(isFetchingPokemonsSel, shallowEqual)
@@ -39,6 +37,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [order, setOrder] = useState(Sort.LowestNumberFirst);
   const [modalFilter, setModalFilter] = useState(false);
+  const [selectedItemsFilter, setSelectedItemsFilter] = useState<string[]>([]);
 
   const handleSearch = (search:string) => {
     setSearch(search);
@@ -52,12 +51,19 @@ function App() {
 
   const onClose = () => setModalFilter(false);
 
+  const filtered = (selectedFilter:string[]) =>{
+    setSelectedItemsFilter(selectedFilter)
+    dispatch(pokemonPerPage(totalPokemons, pokemons, limit, offset, totalPage, currentPage, search, order, selectedItemsFilter));  
+  }
+
   useEffect(() => {
     dispatch(fetchPokemons(totalPokemons));  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    dispatch(pokemonPerPage(totalPokemons, pokemons, limit, offset, totalPage, currentPage, search, order));  
+    dispatch(pokemonPerPage(totalPokemons, pokemons, limit, offset, totalPage, currentPage, search, order, selectedItemsFilter));  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokemons, currentPage, search, order]);
 
 
@@ -76,7 +82,7 @@ function App() {
   return (
     <div className="app">
         <Filters isOpen={modalFilter} onClose={onClose}>
-           <TypesFilters />
+           <TypesFilters filtered={filtered} />
         </Filters>
       <Header>
         <div className="logo" >
