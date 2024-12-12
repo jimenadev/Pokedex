@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import error from "./../statics/error.svg"
 
 const Error = ()  =>{

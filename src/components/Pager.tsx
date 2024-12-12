@@ -1,7 +1,4 @@
 import { ReactNode } from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { AppDispatch } from './../redux/store';
-import { currentPageSel, limitSel, offsetSel, totalPageSel } from "./../redux/selectors/pokemons"
 import back from "./../statics/back.svg"
 import next from "./../statics/next.svg"
 
@@ -11,12 +8,6 @@ type ContenedorProps = {
 };
 
 const Pager = ({ handleChangePage, children}: ContenedorProps)  =>{
-
-    const dispatch: AppDispatch = useDispatch(); 
-    const limit = useSelector(limitSel, shallowEqual)
-    const offset = useSelector(offsetSel, shallowEqual)
-    const totalPage = useSelector(totalPageSel, shallowEqual)
-    const currentPage = useSelector(currentPageSel, shallowEqual)
 
 
     return    <div id="pager">

@@ -42,7 +42,7 @@ const TypesFilters = ({filtered}: Props) =>{
 
     const resetFilter = () =>{
         setSelectedItems([])
-        filtered(selectedItems)
+        filtered([])
     }
 
     const applyFilters = () =>{
@@ -53,7 +53,6 @@ const TypesFilters = ({filtered}: Props) =>{
 
     }
 
-    console.log("check", selectedItems)
 
     return <div className="container-types">
             <h1 className="type-title">Type</h1>

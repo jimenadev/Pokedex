@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 interface PageProps {
   handleChangePage: (event: React.MouseEvent<HTMLDivElement>) => void;
   selected:boolean;

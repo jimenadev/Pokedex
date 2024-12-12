@@ -10,3 +10,6 @@ export const limitSel =  (state: RootState): number => state.pokemonReducer.limi
 export const offsetSel =  (state: RootState): number => state.pokemonReducer.offset;
 export const totalPageSel =  (state: RootState): number => state.pokemonReducer.totalPage;
 export const currentPageSel =  (state: RootState): number => state.pokemonReducer.currentPage;
+export const isActivePokemonSel =  (state: RootState): boolean => state.pokemonReducer.isActivePokemon;
+export const activePokemonSel =  (state: RootState): Pokemon[] => state.pokemonReducer.activePokemon;
+

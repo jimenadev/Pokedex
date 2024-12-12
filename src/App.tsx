@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { AppDispatch } from './redux/store';
-import { currentPageSel, isFetchingPokemonsSel, limitSel, offsetSel, pokemonsDisplaySel, pokemonsErrSel, pokemonsSel, totalPageSel, totalPokemonsSel } from "./redux/selectors/pokemons"
+import { activePokemonSel, currentPageSel, isFetchingPokemonsSel, limitSel, offsetSel, pokemonsDisplaySel, pokemonsErrSel, pokemonsSel, totalPageSel, totalPokemonsSel } from "./redux/selectors/pokemons"
 import { fetchPokemons, pokemonPerPage } from "./redux/actions/pokemons"; 
 import { skipPagePokemons } from "./redux/actions/pager"; 
+import { showFeaturesPokemon } from "./redux/actions/activatePokemon"; 
 import logo from "./statics/Pokedex-logo.svg"
 import Header from './components/Header';
 import Searcher from './components/Searcher';
@@ -34,6 +35,8 @@ function App() {
   const offset = useSelector(offsetSel, shallowEqual)
   const totalPage = useSelector(totalPageSel, shallowEqual)
   const currentPage = useSelector(currentPageSel, shallowEqual)
+  //const isActivePokemon = useSelector(isActivePokemonSel, shallowEqual)
+  const activePokemon = useSelector(activePokemonSel, shallowEqual)
   
   const [search, setSearch] = useState("");
   const [order, setOrder] = useState(Sort.LowestNumberFirst);
@@ -56,7 +59,6 @@ function App() {
 
   const filtered = (selectedFilter:string[]) =>{
     setSelectedItemsFilter(selectedFilter)
-    dispatch(pokemonPerPage(totalPokemons, pokemons, limit, offset, totalPage, currentPage, search, order, selectedItemsFilter));  
   }
 
   const openModalPokemon = (pokemonId:number) =>{
@@ -78,11 +80,31 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+ 
   useEffect(() => {
-    dispatch(pokemonPerPage(totalPokemons, pokemons, limit, offset, totalPage, currentPage, search, order, selectedItemsFilter));  
+    if(pokemons.length>0){
+      dispatch(pokemonPerPage(totalPokemons, pokemons, limit, offset, totalPage, currentPage, search, order, selectedItemsFilter));  
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokemons, currentPage, search, order]);
 
+  useEffect(() => {
+    if(pokemonId !== 0){
+      dispatch(showFeaturesPokemon(pokemons, pokemonId))
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pokemonId]);
+
+  useEffect(() => {
+    if(selectedItemsFilter.length > 0){
+      dispatch(pokemonPerPage(totalPokemons, pokemons, limit, offset, totalPage, currentPage, search, order, selectedItemsFilter));  
+    }else{
+      dispatch(pokemonPerPage(totalPokemons, pokemons, limit, offset, totalPage, currentPage, search, order, selectedItemsFilter));  
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedItemsFilter]);
+
+ 
 
   const handleChangePage: React.MouseEventHandler<HTMLDivElement> = (event) => {
 
@@ -98,7 +120,7 @@ function App() {
 
   return (
     <div className="app">
-      <ModalAboutPokemon isOpen={isOpenModalPokemon} pokemonId={pokemonId} closeModalPokemon={closeModalPokemon}/>
+      <ModalAboutPokemon isOpen={isOpenModalPokemon}  closeModalPokemon={closeModalPokemon} pokemon={activePokemon[0]}/>
       <Filters isOpen={modalFilter} onClose={onClose}>
           <TypesFilters filtered={filtered} />
       </Filters>
@@ -129,9 +151,10 @@ function App() {
 
       {!isFetchingPokemons && !pokemonsErr && pokemonsDisplay.length > 0 && 
        <CardList>
-       {pokemonsDisplay.map((pokemon: Pokemon) => (
+       {pokemonsDisplay.map((pokemon: Pokemon, index:number) => (
          <CardPokemon
-           key={pokemon.id}
+           key={`${pokemon.name}-${pokemon.id}-${index}`}
+           index={`${pokemon.name}-${index}`}
            pokemon={pokemon} 
            openModalPokemon={openModalPokemon}
          />
@@ -142,7 +165,7 @@ function App() {
     <Pager handleChangePage={handleChangePage} >
     {!isFetchingPokemons && !pokemonsErr && pokemonsDisplay.length > 0 && 
          Array.from({ length: totalPage }).map((_, index) => (
-          <Page key={index} pageNumber={index + 1}  selected={currentPage === (index + 1)}  handleChangePage={handleChangePage} />
+          <Page   key={`pokemon-${index}`} pageNumber={index + 1}  selected={currentPage === (index + 1)}  handleChangePage={handleChangePage} />
         ))
       }
     </Pager>

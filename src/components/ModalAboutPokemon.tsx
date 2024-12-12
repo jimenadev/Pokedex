@@ -1,15 +1,15 @@
 import { useState } from "react";
 import back from "../statics/back-arrow.svg"
+import { Pokemon } from "../redux/types/Pokemon";
 
 interface ModalProps {
     isOpen: boolean;
-    pokemonId:number;
     closeModalPokemon: ()=>void
+    pokemon:Pokemon
 }
 
 
-const ModalAboutPokemon = ({isOpen, closeModalPokemon}: ModalProps)  =>{
-
+const ModalAboutPokemon = ({isOpen, closeModalPokemon, pokemon}: ModalProps)  =>{
   const [activeTab, setActiveTab] = useState<string>('about');
 
   const tabs = [
@@ -17,6 +17,8 @@ const ModalAboutPokemon = ({isOpen, closeModalPokemon}: ModalProps)  =>{
     { id: 'base-stats', label: 'Base stats', content: 'Contenido Acerca de' },
     { id: 'evolution', label: 'Evolution', content: 'Contenido de Contacto' },
   ];
+
+  if(!pokemon) return null
 
     return <div  className={`modal ${isOpen ? "modalPokemon-open " : "modalPokemon-close"}`}>
             <div className="modal_content">
@@ -27,9 +29,9 @@ const ModalAboutPokemon = ({isOpen, closeModalPokemon}: ModalProps)  =>{
                   <div  className="modal_pokemon">
                       <div className="pokemon_img">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam reiciendis voluptatum, reprehenderit harum eos, tempora non officiis eius labore, aperiam alias. Voluptates similique porro, sit itaque officia expedita provident rem.</div>
                       <div className="pokemon_desc">
-                        <div className="pokemon_number">#005</div>
-                        <div className="pokemon_name">Charmeleon</div>
-                        <div className="pokemon_type">Fire</div>
+                        <div className="pokemon_number">{pokemon.number}</div>
+                        <div className="pokemon_name">{pokemon.name}</div>
+                        <div className="pokemon_type">fff</div>
                       </div>
                   </div>
                 </div>

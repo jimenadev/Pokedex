@@ -12,6 +12,8 @@ export interface PokemonState {
     currentPage:number;
     search:string;
     filters:string[];
+    isActivePokemon:boolean;
+    activePokemon:Pokemon[];
 }
 
 
@@ -47,6 +49,15 @@ export interface ChangePagePokemonsPayload {
     offset:number,
     currentPage:number,
     typeAction?:string | undefined,
+}
+
+export interface SuccessActivePokemonPayload{
+    isActivePokemon:boolean;
+    data: Pokemon[];
+}
+
+export interface ErrorActivePokemonPayload{
+    error: string;
 }
   
 export interface Pokemon{

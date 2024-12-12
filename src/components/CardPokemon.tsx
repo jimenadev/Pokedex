@@ -3,13 +3,14 @@ import { Pokemon } from '../redux/types/Pokemon';
 import { PokemonTypes } from "../redux/types/PokemonTypes";
 
 interface CardPokemonProps {
+    index:string;
     pokemon: Pokemon;
     openModalPokemon: (pokemonId:number) => void
 }
 
-const CardPokemon: React.FC<CardPokemonProps> = ({ pokemon, openModalPokemon }) =>{
+const CardPokemon: React.FC<CardPokemonProps> = ({ index, pokemon, openModalPokemon }) =>{
     const types = pokemon.types ?? [];
-    return <div className={`pokemon-card pokemonCard-${types[0].type }`}  onClick={() => openModalPokemon(pokemon.id)}>
+    return <div key={index} className={`pokemon-card pokemonCard-${types[0].type }`}  onClick={() => openModalPokemon(pokemon.id)}>
                 <div className="pokemon-image">
                     <img src={pokemon.urlImage} alt="" />
                 </div>

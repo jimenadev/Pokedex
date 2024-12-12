@@ -15,6 +15,12 @@ import {
   errorChangePagePokemon,
  } from "../actions/pager"
 
+ import { 
+  startActivePokemon,
+  successActivePokemon,
+  errorActivePokemon
+ } from "../actions/activatePokemon"
+
 
 
   const initialState: PokemonState = {
@@ -28,7 +34,9 @@ import {
     totalPage:10,
     currentPage:1,
     search:"",
-    filters:[]
+    filters:[],
+    isActivePokemon:false,
+    activePokemon:[]
   };
 
   const pokemonReducer = createReducer(initialState, (builder) => {
@@ -90,10 +98,30 @@ import {
         pokemons: action.payload.data ?? [] ,
       }
     })
+    .addCase(startActivePokemon, (state, action) => {
+      return {
+        ...state,
+        isActivePokemon: true,
+        activePokemon:[]
+      }
+    })
+    .addCase(successActivePokemon, (state, action) => {
+      return {
+        ...state,
+        isActivePokemon: action.payload.isActivePokemon,
+        activePokemon: action.payload.data
+      }
+    })
+    .addCase(errorActivePokemon, (state, action) => {
+      return {
+        ...state,
+        isActivePokemon: false,
+        activePokemon:[]
+      }
+    })
     .addDefaultCase((state, action) => {
       return state;
     });
   });
-
 
   export default pokemonReducer;
