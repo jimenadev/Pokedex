@@ -76,7 +76,7 @@ export const fetchPokemons = (
         }
 
       }else if(filters.length>0){
-
+        console.log("entro")
         const filtersFormatted= filters.map((item) => item.toLowerCase()) 
     
         dataDisplay = pokemons
@@ -97,7 +97,9 @@ export const fetchPokemons = (
         }
     
       }else{
-
+        console.log("entro2")
+        console.log("totalPage", totalPage,"offset",offset,"currentPage",currentPage )
+        totalPage=10;
         if(order !== Sort.LowestNumberFirst){
           dataDisplay = sort(pokemons, order, totalPokemons, offset, limit )
         }else{

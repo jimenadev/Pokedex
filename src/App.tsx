@@ -53,6 +53,7 @@ function App() {
 
   const filtered = (selectedFilter:string[]) =>{
     setSelectedItemsFilter(selectedFilter)
+    console.log("selectedItemsFilter:  ",selectedItemsFilter)
     dispatch(pokemonPerPage(totalPokemons, pokemons, limit, offset, totalPage, currentPage, search, order, selectedItemsFilter));  
   }
 
