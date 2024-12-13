@@ -24,7 +24,7 @@
   }
 
   &.modal-close {
-    transition:transform 5s, opacity 0.5s 0.3s, background-color 0.2s;; 
+    transition:transform 5s, opacity 0.5s 0.3s, background-color 0.2s;
     transform: translateX(100%); /* Sale de la pantalla */
     opacity: 0; /* Desaparece suavemente */
     background-color: rgba(0, 0, 0, 0); /* Fondo transparente */

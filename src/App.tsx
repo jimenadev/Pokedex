@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { AppDispatch } from './redux/store';
-import { activePokemonSel, currentPageSel, isFetchingPokemonsSel, limitSel, offsetSel, pokemonsDisplaySel, pokemonsErrSel, pokemonsSel, totalPageSel, totalPokemonsSel } from "./redux/selectors/pokemons"
+import { activePokemonSel, currentPageSel, extraAboutSel, extraBaseStatsSel, isFetchingPokemonsSel, limitSel, offsetSel, pokemonsDisplaySel, pokemonsErrSel, pokemonsSel, totalPageSel, totalPokemonsSel } from "./redux/selectors/pokemons"
 import { fetchPokemons, pokemonPerPage } from "./redux/actions/pokemons"; 
 import { skipPagePokemons } from "./redux/actions/pager"; 
 import { showFeaturesPokemon } from "./redux/actions/activatePokemon"; 
@@ -35,6 +35,12 @@ function App() {
   const offset = useSelector(offsetSel, shallowEqual)
   const totalPage = useSelector(totalPageSel, shallowEqual)
   const currentPage = useSelector(currentPageSel, shallowEqual)
+  const extraAbout = useSelector(extraAboutSel, shallowEqual)
+  const extraBaseStats = useSelector(extraBaseStatsSel, shallowEqual)
+
+
+
+  
   //const isActivePokemon = useSelector(isActivePokemonSel, shallowEqual)
   const activePokemon = useSelector(activePokemonSel, shallowEqual)
   
@@ -118,7 +124,7 @@ function App() {
 
   return (
     <div className="app">
-      <ModalAboutPokemon isOpen={isOpenModalPokemon}  closeModalPokemon={closeModalPokemon} pokemon={activePokemon[0]} pokemonId={pokemonId}/>
+      <ModalAboutPokemon isOpen={isOpenModalPokemon}  closeModalPokemon={closeModalPokemon} pokemon={activePokemon[0]} pokemonId={pokemonId} extraAbout={extraAbout}  extraBaseStats={extraBaseStats}/>
       <Filters isOpen={modalFilter} onClose={onClose}>
           <TypesFilters filtered={filtered} />
       </Filters>

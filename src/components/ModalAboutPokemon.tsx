@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import back from "../statics/back-arrow.svg"
-import { Pokemon } from "../redux/types/Pokemon";
+import { ExtraAboutPokemon, ExtraBaseStatsPokemon, Pokemon } from "../redux/types/Pokemon";
 import { PokemonTypes } from "../redux/types/PokemonTypes";
 import TypePokemon from "./TypePokemon";
 
@@ -9,17 +9,18 @@ interface ModalProps {
     closeModalPokemon: ()=>void
     pokemon:Pokemon
     pokemonId:number
+    extraAbout:ExtraAboutPokemon | undefined
+    extraBaseStats: ExtraBaseStatsPokemon[] | undefined
 }
 
 
 const tabs = [
   { id: 'about', label: 'About', content: 'Contenido de Inicio' },
   { id: 'base-stats', label: 'Base stats', content: 'Contenido Acerca de' },
-  { id: 'evolution', label: 'Evolution', content: 'Contenido de Contacto' },
 ];
 
 
-const ModalAboutPokemon = ({isOpen, closeModalPokemon, pokemon, pokemonId}: ModalProps)  =>{
+const ModalAboutPokemon = ({isOpen, closeModalPokemon, pokemon, pokemonId, extraAbout, extraBaseStats}: ModalProps)  =>{
   const [activeTab, setActiveTab] = useState<string>('about');
   const [activePokemon, setActivePokemon] = useState<Pokemon>();
   const [activePokemonTypes, setActivePokemonTypes] = useState<PokemonTypes[]>([]);
@@ -75,7 +76,43 @@ const ModalAboutPokemon = ({isOpen, closeModalPokemon, pokemon, pokemonId}: Moda
                       </ul>
                     </div>
                     <div className="modal_content_tab_content">
-                      {tabs.find((tab) => tab.id === activeTab)?.content}
+                      { (activeTab === 'about') && <div id="about">
+                          <table className="table_about">
+                              <tr>
+                                <td>Habitat</td>
+                                <td>{extraAbout?.habitat}</td>
+                            </tr>
+                            <tr>
+                              <td>Height</td>
+                              <td>{extraAbout?.height}cm</td>
+                            </tr>
+                            <tr>
+                              <td>Weight</td>
+                              <td>{extraAbout?.weight}kg</td>
+                            </tr>
+                            <tr>
+                              <td>Abilities</td>
+                              <td>{extraAbout?.abilities}</td>
+                            </tr>                          
+                          </table>
+                      </div>}
+                      { (activeTab === 'base-stats') && <div id="base-stats">
+                      <table className="table_base-stats">
+                        {extraBaseStats?.map((baseStats:ExtraBaseStatsPokemon) =>(
+                          <tr>
+                              <td>{baseStats.name}</td>
+                              <td>{baseStats.value}</td>
+                              <td className="bar">
+                                <div className="progress-bar">
+                                      <div className={`progress progress-${activePokemonTypes[0]?.type }`} style={{ width: `${baseStats.value}%` }}></div>
+                                  </div>
+                              </td>
+                            </tr>
+                        ))}
+                       
+                          </table>
+                      </div>
+                     }
                     </div>
                 </div>
             </div>

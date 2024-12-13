@@ -11,6 +11,7 @@
     transition: transform 1s;
     justify-content: center;
     align-items: center;
+    transition:transform 0.2s, opacity 0.5s 0.3s, background-color 0.2s;
    
   
     &.modalPokemon-open {
@@ -19,6 +20,7 @@
         background-color: rgba(0, 0, 0, 0.5); /* Color visible */
 
         .modal_content{
+            transform: scale(1);
             border-radius: 16px;
             box-shadow: 0 11 20 0 #919191;
         }
@@ -26,7 +28,6 @@
     }
 
     &.modalPokemon-close {
-        transform: scale(0);
         opacity: 0; /* Aparece suavemente */
         background-color: rgba(0, 0, 0,0); /* Color visible */
 
@@ -58,7 +59,7 @@
             }
 
             .modal_pokemon{
-                margin-top: 8%;
+                margin-top: 4%;
                 margin-right: 15%;
                 display: flex;
                 flex-grow: 1;
@@ -123,6 +124,8 @@
             background-color: $white;
             border-radius: 16px;
             z-index: 1000;
+            position: relative;
+            top: -15px;
 
             .modal_content_tab_header{
 
@@ -152,6 +155,84 @@
 
 
             }
+            .modal_content_tab_content{
+
+                #about{
+                    margin: 2%;
+                    .table_about{
+                        padding: 2%;
+                        width: auto;/* El ancho se ajusta automáticamente al contenido */
+                        table-layout: auto; /* Permite que las columnas ajusten su ancho dinámicamente */
+
+                        tr{
+                            padding: 2%;
+                        box-sizing: border-box;
+
+                            td{
+                                padding: 8px;
+                                color: $dark-gray;
+                                font-weight: bold;
+                                text-align: left; 
+                                white-space: nowrap; /* Evita que el texto haga saltos de línea */                               
+                            
+                            }
+                        }
+
+                    }
+                }
+
+                #base-stats{
+                    margin: 2%;
+                    .table_base-stats{
+                        padding: 2%;
+                        width: auto;/* El ancho se ajusta automáticamente al contenido */
+                        table-layout: auto; /* Permite que las columnas ajusten su ancho dinámicamente */
+
+                        tr{
+                            padding: 2%;
+                        box-sizing: border-box;
+
+                            td{
+                                padding: 8px;
+                                color: $dark-gray;
+                                font-weight: bold;
+                                text-align: left; 
+                                white-space: nowrap; /* Evita que el texto haga saltos de línea */
+
+                                &.bar{
+                                    width: 100%;
+
+                                    .progress-bar {
+                                        width: 100%; /* Ancho completo */
+                                        height: 10px; /* Altura de la barra */
+                                        background-color: #e0e0e0; /* Color de fondo */
+                                        border-radius: 10px; /* Bordes redondeados */
+                                        overflow: hidden; /* Evita que el contenido sobresalga */
+                                        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); /* Sombra interna */
+    
+                                         /* Porcentaje de progreso */
+                                        .progress {
+                                            height: 100%; /* Altura completa */
+                                            transition: width 0.3s ease; /* Transición suave para el cambio de porcentaje */
+                                        }
+                                    }
+
+                                }
+
+                               
+                                
+                               
+                            
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+
+            
         }
 
        

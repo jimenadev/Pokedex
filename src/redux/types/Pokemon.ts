@@ -14,6 +14,8 @@ export interface PokemonState {
     filters:string[];
     isActivePokemon:boolean;
     activePokemon:Pokemon[];
+    extraAbout?:ExtraAboutPokemon;
+    extraBaseStats?:ExtraBaseStatsPokemon[];
 }
 
 
@@ -54,6 +56,8 @@ export interface ChangePagePokemonsPayload {
 export interface SuccessActivePokemonPayload{
     isActivePokemon:boolean;
     data: Pokemon[] | [];
+    extraAbout:ExtraAboutPokemon;
+    extraBaseStats:ExtraBaseStatsPokemon[];
 }
 
 export interface ErrorActivePokemonPayload{
@@ -68,3 +72,20 @@ export interface Pokemon{
     urlImage:string;
     types?:PokemonTypes[];
 }
+
+export interface ExtraAboutPokemon{
+    habitat:string;
+    height:number;
+    weight:number;
+    abilities:string;
+}
+
+
+export interface ExtraBaseStatsPokemon{
+    name:string;
+    value:string;
+}
+
+
+
+        

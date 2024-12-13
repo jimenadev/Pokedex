@@ -36,7 +36,9 @@ import {
     search:"",
     filters:[],
     isActivePokemon:false,
-    activePokemon:[]
+    activePokemon:[],
+    extraAbout:undefined,
+    extraBaseStats:[],
   };
 
   const pokemonReducer = createReducer(initialState, (builder) => {
@@ -109,7 +111,9 @@ import {
       return {
         ...state,
         isActivePokemon: action.payload.isActivePokemon,
-        activePokemon: action.payload.data
+        activePokemon: action.payload.data,
+        extraAbout: action.payload.extraAbout,
+        extraBaseStats: action.payload.extraBaseStats,
       }
     })
     .addCase(errorActivePokemon, (state, action) => {
