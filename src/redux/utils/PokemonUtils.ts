@@ -40,7 +40,7 @@ export class PokemonUtils {
         const types: PokemonTypes[] = pokemonsDataTypes.map((typeInfo: any) => ({
           type: typeInfo.type.name,
           name: PokemonUtils.capitalize(typeInfo.type.name),
-          typeImg: `/icon/${typeInfo.type.name}.svg`,
+          typeImg: `./icon/${typeInfo.type.name}.svg`,
           classPokemonType: `pokemon-type pokemonType-${typeInfo.type.name}`
         }))
 
