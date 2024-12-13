@@ -40,7 +40,6 @@
     .modal_content{
         width: 40vw;
         height: 60vh;
-        background-color: #FF6464;
 
         .modal_content_header{
             background-image: url("./../../statics/background-left.svg"),  url("./../../statics/background-right.svg");
@@ -49,7 +48,6 @@
             background-clip: border-box, border-box;
             width: 100%;
             height: 40%;
-            background-color: #FF6464;
             border-radius: 16px;
             display: flex;
             gap: 10px;
@@ -63,17 +61,25 @@
                 margin-top: 8%;
                 margin-right: 15%;
                 display: flex;
+                flex-grow: 1;
+                gap: 5%;
+                justify-content: center;
+                align-items: center;
+
             
                 .pokemon_img{
-                    width: 45%;
+                    width: 40%;
                     height: 100%;
-                    outline: 1px solid red;
+
+                    .poke_img{
+                        width: 90%;
+                        height: 90%;
+                    }
                 }
 
                 .pokemon_desc{
-                    width: 55%;
+                    width: 60%;
                     height: 100%;
-                    outline: 1px solid red;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
@@ -90,11 +96,26 @@
                     .pokemon_type{
                         color: $dark-gray;
                         font-size: $font-size-body2;
-                    }
+                            display: flex;
+                            .pokemon-type{
+                                display: flex;
+                                justify-content:space-evenly;
+                                align-items: center;
+                                margin-right: 3%;
+                                padding: 3%;
+                                width: auto;
+                                min-width: 20px;
+                                border-radius: 999px;
+                                color: $dark-gray;
+                                font-size:$font-size-body2;
+                                font-weight:$font-weight-body2;
+                            }
+                    
                 }
                 
             }
         }
+    }
 
         .modal_content_tab{
             height: 60%;

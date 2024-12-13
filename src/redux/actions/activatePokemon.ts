@@ -14,10 +14,17 @@ export const showFeaturesPokemon = (
 ):  AppThunk  => async (dispatch) => {
     try {
         dispatch(startActivePokemon());
+
+        let data: Pokemon[] =[]
+
+        if(pokemonId !== 0){
+
+            data = pokemons.filter(
+                (pokemon: Pokemon) => pokemon.id === pokemonId
+              );
+
+        }
         
-        const data: Pokemon[] = pokemons.filter(
-            (pokemon: Pokemon) => pokemon.id === pokemonId
-          );
 
         dispatch(successActivePokemon({data,  isActivePokemon:false}))
       

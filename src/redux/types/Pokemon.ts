@@ -53,7 +53,7 @@ export interface ChangePagePokemonsPayload {
 
 export interface SuccessActivePokemonPayload{
     isActivePokemon:boolean;
-    data: Pokemon[];
+    data: Pokemon[] | [];
 }
 
 export interface ErrorActivePokemonPayload{

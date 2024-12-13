@@ -9,3 +9,9 @@
         background-color: $color;
     }
 }
+
+@each $nombre, $color in $colorPokemonBackground{
+    .pokemonTypeModal-#{$nombre}{
+        background-color: $color;
+    }
+}

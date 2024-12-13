@@ -89,9 +89,7 @@ function App() {
   }, [pokemons, currentPage, search, order]);
 
   useEffect(() => {
-    if(pokemonId !== 0){
       dispatch(showFeaturesPokemon(pokemons, pokemonId))
-    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokemonId]);
 
@@ -120,7 +118,7 @@ function App() {
 
   return (
     <div className="app">
-      <ModalAboutPokemon isOpen={isOpenModalPokemon}  closeModalPokemon={closeModalPokemon} pokemon={activePokemon[0]}/>
+      <ModalAboutPokemon isOpen={isOpenModalPokemon}  closeModalPokemon={closeModalPokemon} pokemon={activePokemon[0]} pokemonId={pokemonId}/>
       <Filters isOpen={modalFilter} onClose={onClose}>
           <TypesFilters filtered={filtered} />
       </Filters>
