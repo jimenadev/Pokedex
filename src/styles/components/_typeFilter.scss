@@ -1,9 +1,10 @@
 .container-types{
     width: 80%;
     margin: 10px auto;
-    min-height: 94vh;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
+    overflow-y: hidden;
 
     .title{
         .type-title{
@@ -72,15 +73,14 @@
     }
 
     .buttons-types{
-        padding: 10px 0;
         width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 8px;
-        margin-bottom: 20px;
-        order: 1; 
-        margin-top: auto; 
+        gap: 3%;
+        order: 1;
+        margin: auto;
+
 
         .info{
             color:$yellow;
@@ -104,8 +104,8 @@
         .button-box{
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin-bottom: 20px;
+            gap: 3%;
+
             .button-reset-filters{
                 width: 141px;
                 height: 43px;
