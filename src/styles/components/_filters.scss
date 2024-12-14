@@ -126,6 +126,12 @@
               }
         }
       }
-      
-      
+}
+
+@media (max-width: 400px) {
+  .filters{
+    flex-direction: column;
+    justify-content: start;
+    padding-bottom: 15%;
+  }
 }
