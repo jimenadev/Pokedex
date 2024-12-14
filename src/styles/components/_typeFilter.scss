@@ -1,14 +1,19 @@
 .container-types{
     width: 80%;
     margin: 10px auto;
-    min-height: 100vh;
+    min-height: 94vh;
+    display: flex;
+    flex-direction: column;
 
-    .type-title{
-        color: $dark-gray-opacity-60;
-        font-size:$font-size-body2;
-        font-weight:$font-weight-body2;
-        margin: 20px 0;
+    .title{
+        .type-title{
+            color: $dark-gray-opacity-60;
+            font-size:$font-size-body2;
+            font-weight:$font-weight-body2;
+            margin: 20px 0;
+        }
     }
+    
 
     .container-names-types{
         display: grid;
@@ -67,9 +72,6 @@
     }
 
     .buttons-types{
-        position: fixed;
-        bottom: 0;
-        left: 0;
         padding: 10px 0;
         width: 100%;
         display: flex;
@@ -77,6 +79,8 @@
         justify-content: center;
         gap: 8px;
         margin-bottom: 20px;
+        order: 1; 
+        margin-top: auto; 
 
         .info{
             color:$yellow;
@@ -122,12 +126,11 @@
                  cursor: pointer;
              }
         }
-
-       
-
     }
 
    
 }
+
+
 
 

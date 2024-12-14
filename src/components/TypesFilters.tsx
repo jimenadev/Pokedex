@@ -68,7 +68,10 @@ const TypesFilters = ({filtered}: Props) =>{
 
 
     return <div className="container-types">
-            <h1 className="type-title">Type</h1>
+            <div className="title">
+                <h1 className="type-title">Type</h1>
+            </div>
+            
             <div className="container-names-types">
             {listTypePokemon.map((type, index) => (
                 <TypeFilter
