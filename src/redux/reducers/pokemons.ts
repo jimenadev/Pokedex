@@ -7,7 +7,8 @@ import {
     errorFetchingPokemons,
     successFetchingPokemons,
     successSearchPokemons,
-    successFetchingPokemonsDisplay
+    successFetchingPokemonsDisplay,
+    startFetchingPokemonsDisplay
   } from "../actions/pokemons";
 
  import { 
@@ -24,14 +25,14 @@ import {
 
 
   const initialState: PokemonState = {
-    isFetchingPokemons: false,
+    isFetchingPokemons: true,
     error: undefined,
     pokemons: [],
     pokemonsDisplay:[],
-    totalPokemon:700,
+    totalPokemon:386,
     limit:70,
     offset:0,
-    totalPage:10,
+    totalPage:6,
     currentPage:1,
     search:"",
     filters:[],
@@ -51,7 +52,7 @@ import {
     .addCase(successFetchingPokemons, (state, action) => {
       return {
         ...state,
-        isFetchingPokemons: false,
+        isFetchingPokemons: true,
         pokemons: action.payload.data,
       }
     })
@@ -61,6 +62,12 @@ import {
         isFetchingPokemons: false,
         pokemonsDisplay: [],
         error: action.payload.error,
+      }
+    })
+    .addCase(startFetchingPokemonsDisplay, (state, action) => {
+      return {
+        ...state,
+        isFetchingPokemons: true,
       }
     })
     .addCase(successFetchingPokemonsDisplay, (state, action) => {

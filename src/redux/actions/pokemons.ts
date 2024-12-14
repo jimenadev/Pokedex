@@ -9,6 +9,7 @@ import { Sort } from "../types/sort.enum";
 export const startFetchingPokemons = createAction("START_FETCHING_POKEMONS");
 export const errorFetchingPokemons = createAction<ErrorFetchingPokemonsPayload>("ERROR_FETCHING_POKEMONS");
 export const successFetchingPokemons = createAction<SuccessFetchingPokemonsPayload>("SUCCESS_FETCHING_POKEMONS");
+export const startFetchingPokemonsDisplay = createAction("START_FETCHING_POKEMONS_DISPLAY");
 export const successFetchingPokemonsDisplay = createAction<SuccessFetchingPokemonsDisplayPayload>("SUCCESS_FETCHING_POKEMONS_DISPLAY");
 export const successSearchPokemons = createAction<SuccessSearchPokemonsPayload>("SUCCESS_SEARCH_POKEMONS");
 
@@ -49,7 +50,7 @@ export const fetchPokemons = (
     filters:string[],
 ):  AppThunk  => async (dispatch) => {
     try {
-      dispatch(startFetchingPokemons());
+      dispatch(startFetchingPokemonsDisplay());
       let dataDisplay: Pokemon[] = [];
 
       if(search){
@@ -97,7 +98,7 @@ export const fetchPokemons = (
     
       }else{
 
-        totalPage=10;
+        totalPage=6;
         if(order !== Sort.LowestNumberFirst){
           dataDisplay = sort(pokemons, order, totalPokemons, offset, limit )
         }else{

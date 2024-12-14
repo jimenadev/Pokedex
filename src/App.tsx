@@ -38,13 +38,12 @@ function App() {
   const extraAbout = useSelector(extraAboutSel, shallowEqual)
   const extraBaseStats = useSelector(extraBaseStatsSel, shallowEqual)
 
-
-
   
   //const isActivePokemon = useSelector(isActivePokemonSel, shallowEqual)
   const activePokemon = useSelector(activePokemonSel, shallowEqual)
   
   const [search, setSearch] = useState("");
+  const [reset, setReset] = useState(false);
   const [order, setOrder] = useState(Sort.LowestNumberFirst);
   const [modalFilter, setModalFilter] = useState(false);
   const [selectedItemsFilter, setSelectedItemsFilter] = useState<string[]>([]);
@@ -65,6 +64,10 @@ function App() {
 
   const filtered = (selectedFilter:string[]) =>{
     setSelectedItemsFilter(selectedFilter)
+    if(selectedFilter.length===0){
+      setReset(true)
+    }
+
   }
 
   const openModalPokemon = (pokemonId:number) =>{
@@ -100,13 +103,20 @@ function App() {
   }, [pokemonId]);
 
   useEffect(() => {
+   
     if(selectedItemsFilter.length > 0){
-      dispatch(pokemonPerPage(totalPokemons, pokemons, limit, offset, totalPage, currentPage, search, order, selectedItemsFilter));  
-    }else{
       dispatch(pokemonPerPage(totalPokemons, pokemons, limit, offset, totalPage, currentPage, search, order, selectedItemsFilter));  
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedItemsFilter]);
+
+  useEffect(() => {
+    if(reset){
+      dispatch(pokemonPerPage(totalPokemons, pokemons, limit, offset, totalPage, currentPage, search, order, selectedItemsFilter));  
+      setReset(false)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reset]);
 
  
 

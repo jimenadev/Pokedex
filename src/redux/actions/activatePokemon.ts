@@ -40,10 +40,10 @@ export const showFeaturesPokemon = (
                     name: stat.stat.name, // Nombre del atributo (ej. speed)
                     value: stat.base_stat, // Valor base
                 }))
-            
-              dispatch(successActivePokemon({isActivePokemon:false, data, extraAbout, extraBaseStats}))
 
         }
+
+        dispatch(successActivePokemon({isActivePokemon:false, data, extraAbout, extraBaseStats}))
       
     } catch (error: any) {
         dispatch(errorActivePokemon(error));
