@@ -12,6 +12,7 @@
     justify-content: center;
     align-items: center;
     transition:transform 0.2s, opacity 0.5s 0.3s, background-color 0.2s;
+    overflow: auto;
 
     &.modalPokemon-open {
         transform: scale(1);
@@ -294,7 +295,7 @@
 
 @media (max-width: 456px) {
     .modal{
-
+        
        
         .modal_content{
             
