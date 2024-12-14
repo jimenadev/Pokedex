@@ -98,7 +98,7 @@ export const fetchPokemons = (
     
       }else{
 
-        totalPage=6;
+        totalPage=7;
         if(order !== Sort.LowestNumberFirst){
           dataDisplay = sort(pokemons, order, totalPokemons, offset, limit )
         }else{
