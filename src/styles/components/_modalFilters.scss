@@ -83,3 +83,11 @@
           
     }
 }
+@media screen and ( orientation: landscape ) {
+  .modal-overlay {
+
+    .modal-content {
+      height: auto;
+    }  
+  }
+}
