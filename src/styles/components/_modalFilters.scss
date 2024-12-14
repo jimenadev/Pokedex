@@ -42,7 +42,7 @@
       top: 0;
       right: 0;
       width: 336px;
-      height: 100%;
+      min-height: 100%;
       background:$light-gray;
       box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2); /* Sombra opcional */
       z-index: 1001; /* Debe estar por encima de la capa semitransparente */
