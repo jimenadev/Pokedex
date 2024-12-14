@@ -30,7 +30,6 @@ const ModalAboutPokemon = ({isOpen, closeModalPokemon, pokemon, pokemonId, extra
       setActivePokemon(pokemon)
       const types = pokemon?.types ?? [];
       setActivePokemonTypes(types)
-      console.log("activePokemonTypes: ",pokemon)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokemon, pokemonId]);

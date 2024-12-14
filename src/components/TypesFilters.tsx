@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ListTypePokemon } from "../redux/types/ListTypePokemon"
 import TypeFilter from "./TypeFilter"
+import info from "./../statics/info.svg"
 
 const listTypePokemon:ListTypePokemon[] = [
     {type:"Normal"},
@@ -30,6 +31,7 @@ interface Props {
 const TypesFilters = ({filtered}: Props) =>{
 
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
+    const [infoVisible, setInfoVisible] = useState(false)
 
     const handleCheckboxChange = (label: string) => {
         setSelectedItems((prevSelected) =>
@@ -39,16 +41,27 @@ const TypesFilters = ({filtered}: Props) =>{
         );
     };
 
-
+    const toggleVisibility = () => {
+        // Aparece el estado
+        setInfoVisible(true);
+        // Desaparece después de 3 segundos
+        setTimeout(() => {
+            setInfoVisible(false);
+        }, 5000);
+      };
+    
     const resetFilter = () =>{
         setSelectedItems([])
         filtered([])
+        toggleVisibility()
+        
     }
 
     const applyFilters = () =>{
 
         if(setSelectedItems.length>0){
             filtered(selectedItems)
+            toggleVisibility()
         }
 
     }
@@ -66,9 +79,13 @@ const TypesFilters = ({filtered}: Props) =>{
                         handleCheckboxChange={handleCheckboxChange}/>
             ))}
             </div>
+            
             <div className="buttons-types">
-                <button className="button-reset-filters" onClick={resetFilter}>Reset filters</button>
-                <button className="button-apply-filters" onClick={applyFilters}>Apply filters</button>
+                <div className={`info ${infoVisible ? "open-info": "close-info"}`}><span><img src={info} alt="info" /></span>changes applied!!</div>
+                <div className="button-box">
+                    <button className="button-reset-filters" onClick={resetFilter}>Reset filters</button>
+                    <button className="button-apply-filters" onClick={applyFilters}>Apply filters</button>
+                </div>
             </div>
 
 

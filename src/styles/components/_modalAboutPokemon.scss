@@ -12,12 +12,13 @@
     justify-content: center;
     align-items: center;
     transition:transform 0.2s, opacity 0.5s 0.3s, background-color 0.2s;
-   
+
   
     &.modalPokemon-open {
         transform: scale(1);
         opacity: 1; /* Aparece suavemente */
         background-color: rgba(0, 0, 0, 0.5); /* Color visible */
+        transition: transform 5s;
 
         .modal_content{
             transform: scale(1);
@@ -30,10 +31,12 @@
     &.modalPokemon-close {
         opacity: 0; /* Aparece suavemente */
         background-color: rgba(0, 0, 0,0); /* Color visible */
+        transform: scale(0);
 
         .modal_content{
             border-radius: 16px;
             box-shadow: 0 11 20 0 #919191;
+            transition: transform 10s;
         }
       
     }
