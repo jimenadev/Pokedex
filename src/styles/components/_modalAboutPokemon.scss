@@ -160,14 +160,13 @@
 
                         tr{
                             padding: 2%;
-                        box-sizing: border-box;
+                            box-sizing: border-box;
 
                             td{
                                 padding: 8px;
                                 color: $dark-gray;
                                 font-weight: bold;
-                                text-align: left; 
-                                white-space: nowrap; /* Evita que el texto haga saltos de línea */                               
+                                text-align: left;                             
                             
                             }
                         }
